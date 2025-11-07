@@ -1,26 +1,42 @@
 <?php
-// --- Database Configuration ---
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root'); // Default XAMPP username
-define('DB_PASSWORD', '');     // Default XAMPP password
-define('DB_NAME', 'school_db');
-
 // --- Response Object ---
-// We'll send a JSON response back to the JavaScript
 header('Content-Type: application/json');
 $response = ['status' => 'error', 'message' => 'An unknown error occurred.'];
 
 try {
-    // --- 1. Create Connection ---
-    $conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    // --- Database Configuration (Neon) ---
+    // Get this from your Neon dashboard's "Connection Details" panel.
+    // It will be a single URL string.
+    $DATABASE_URL = "postgresql://neondb_owner:npg_VdTI0ouB4Jzm@ep-misty-tree-a19o2te8-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"; 
 
-    // Check connection
-    if ($conn->connect_error) {
-        throw new Exception('Connection failed: ' . $conn->connect_error);
+    if (empty($DATABASE_URL) || $DATABASE_URL === "YOUR_NEON_DATABASE_URL_HERE") {
+        throw new Exception('Please configure your $DATABASE_URL in login.php');
     }
 
+    // Parse the Neon URL (e.g., postgres://user:password@host.neon.tech/dbname?sslmode=require)
+    $db_parts = parse_url($DATABASE_URL);
+
+    if (!$db_parts) {
+        throw new Exception('Invalid Database URL');
+    }
+
+    $host = $db_parts['host'];
+    $port = $db_parts['port'] ?? 5432;
+    $username = $db_parts['user'];
+    $password = $db_parts['pass'];
+    $dbname = ltrim($db_parts['path'], '/');
+
+    // Create the DSN (Data Source Name) for PDO
+    // We force sslmode=require as Neon needs it.
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;user=$username;password=$password;sslmode=require";
+
+    // --- 1. Create Connection (PDO) ---
+    // We use PDO (PHP Data Objects) as it supports PostgreSQL (and many other dbs)
+    $conn = new PDO($dsn);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
     // --- 2. Get Data from POST ---
-    // Check if email and password are set
     if (!isset($_POST['email']) || !isset($_POST['password'])) {
         throw new Exception('Email and password are required.');
     }
@@ -28,51 +44,33 @@ try {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Basic validation
     if (empty($email) || empty($password)) {
         throw new Exception('Please fill in all fields.');
     }
 
     // --- 3. Prepare and Execute Query ---
-    // Use prepared statements to prevent SQL injection
+    // PDO uses prepare/execute similar to mysqli
     $stmt = $conn->prepare("SELECT password, role FROM users WHERE email = ?");
-    if ($stmt === false) {
-        throw new Exception('Prepare statement failed: ' . $conn->error);
-    }
-    
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $stmt->execute([$email]); // Pass parameters in an array
 
     // --- 4. Verify User ---
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
+    // Fetch the user
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        // User was found
         $hashed_password = $user['password'];
         $role = $user['role'];
 
-        // Verify the password against the stored hash
-        // Note: The hashes in setup.sql are placeholders. 
-        // For a real system, you'd use password_hash() during registration.
-        // For this example, we'll just *pretend* to verify.
-        
-        // --- IMPORTANT ---
-        // For a REAL app, you would use:
-        // if (password_verify($password, $hashed_password)) {
-        //
-        // But since we don't know the user's password to hash it,
-        // we will use a simple "password_verify" bypass for this demo.
-        // Let's assume the passwords are 'admin123', 'teacher123', etc.
+        // --- IMPORTANT (Same as before) ---
+        // This is the same demo bypass logic.
+        // For a REAL app, use: password_verify($password, $hashed_password)
         
         $password_matches = false;
         if ($email === 'admin@school.com' && $password === 'admin123') $password_matches = true;
         if ($email === 'teacher@school.com' && $password === 'teacher123') $password_matches = true;
         if ($email === 'student@school.com' && $password === 'student123') $password_matches = true;
         if ($email === 'parent@school.com' && $password === 'parent123') $password_matches = true;
-
-        // Replace the block above with this line for a REAL, secure app
-        // after you have a registration page that uses password_hash():
-        //
-        // if (password_verify($password, $hashed_password)) {
 
         if ($password_matches) {
             // Password is correct!
@@ -82,7 +80,7 @@ try {
 
             $response['status'] = 'success';
             $response['message'] = 'Login Successful! Redirecting...';
-            $response['role'] = $role;
+            $response['role'] = $role; // Send the role back to the JavaScript
         } else {
             // Invalid password
             $response['message'] = 'Invalid email or password.';
@@ -93,8 +91,9 @@ try {
     }
 
     // --- 5. Close Connections ---
-    $stmt->close();
-    $conn->close();
+    // Set to null to close
+    $stmt = null;
+    $conn = null;
 
 } catch (Exception $e) {
     $response['message'] = $e->getMessage();

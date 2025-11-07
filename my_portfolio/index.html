@@ -1,1 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Tausif Iqubal - Web Developer</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Configure Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-primary': tailwind.colors.teal[500],
+                        'brand-secondary': tailwind.colors.teal[600],
+                    }
+                },
+            },
+        }
+    </script>
+   
+   
+</head>
+<body class="bg-gray-900 text-gray-100 antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md shadow-lg">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Brand Logo/Name -->
+            <a href="#home" class="text-2xl font-bold text-white transition-colors hover:text-brand-primary">
+                Md Tausif Iqubal
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-6">
+                <!-- Links for logged-out users -->
+                <div id="auth-links" class="flex items-center space-x-6">
+                    <a href="#home" class="text-gray-300 transition-colors hover:text-brand-primary">Home</a>
+                    <a href="#about" class="text-gray-300 transition-colors hover:text-brand-primary">About</a>
+                    <a href="#projects" class="text-gray-300 transition-colors hover:text-brand-primary">Projects</a>
+                    <a href="#contact" class="text-gray-300 transition-colors hover:text-brand-primary">Contact</a>
+                    <button id="show-signin-btn" class="text-gray-300 transition-colors hover:text-brand-primary">Sign In</button>
+                    <button id="show-signup-btn" class="bg-brand-primary text-white font-medium py-2 px-4 rounded-lg shadow-md transition-colors hover:bg-brand-secondary">
+                        Sign Up
+                    </button>
+                </div>
+                <!-- Menu for logged-in users -->
+                <div id="user-menu" class="hidden items-center space-x-6">
+                    <a href="#home" class="text-gray-300 transition-colors hover:text-brand-primary">Home</a>
+                    <a href="#about" class="text-gray-300 transition-colors hover:text-brand-primary">About</a>
+                    <a href="#projects" class="text-gray-300 transition-colors hover:text-brand-primary">Projects</a>
+                    <a href="#contact" class="text-gray-300 transition-colors hover:text-brand-primary">Contact</a>
+                    <span id="user-email-display" class="text-gray-400 text-sm"></span>
+                    <button id="signout-btn" class="bg-gray-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-colors hover:bg-gray-600">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <span class="sr-only">Open main menu</span>
+                <!-- Hamburger Icon -->
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <!-- Links for logged-out users -->
+            <div id="mobile-auth-links" class="space-y-1">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">About</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Projects</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Contact</a>
+                <button id="show-signin-btn-mobile" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Sign In</button>
+                <button id="show-signup-btn-mobile" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-brand-primary text-white hover:bg-brand-secondary">Sign Up</button>
+            </div>
+            <!-- Menu for logged-in users -->
+            <div id="mobile-user-menu" class="hidden space-y-1">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">About</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Projects</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Contact</a>
+                <span id="mobile-user-email-display" class="block px-3 py-2 text-base font-medium text-gray-400"></span>
+                <button id="signout-btn-mobile" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-gray-700 text-white hover:bg-gray-600">Sign Out</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6">
+
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center pt-20">
+            <div class="max-w-3xl">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-4">
+                    Hi, I'm <span class="text-brand-primary">Tausif Iqubal</span>
+                </h1>
+                <h2 class="text-3xl md:text-4xl font-semibold text-gray-300 mb-6">
+                    I build things for the web.
+                </h2>
+                <p class="text-lg text-gray-400 mb-8 max-w-2xl">
+                    I'm a passionate Web Developer specializing in creating modern, responsive, and user-friendly web applications. I turn complex problems into elegant digital solutions.
+                </p>
+                <a href="#projects" class="inline-block bg-brand-primary text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-brand-secondary">
+                    View My Work
+                </a>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-24">
+            <h2 class="text-4xl font-bold text-center mb-12">
+                About <span class="text-brand-primary">Me</span>
+            </h2>
+            <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                <!-- Placeholder for an image -->
+                <div class="w-full md:w-1/3">
+                    <img src="https://mdtausifiqubal7.blogspot.com/2025/11/dp.html" 
+                         alt="Md Tausif Iqubal" 
+                         class="rounded-full shadow-2xl mx-auto border-4 border-gray-700"
+                         onerror="this.src='https://placehold.co/400x400/1F2937/E0E7FF?text=Profile+Image'">
+                </div>
+                <div class="w-full md:w-2/3">
+                    <p class="text-lg text-gray-300 mb-4">
+                        Hello! I'm Md Tausif Iqubal, a dedicated web developer based in [Your City/Country]. My journey into web development started with a fascination for how ideas come to life on the internet. Today, I specialize in both front-end and back-end development.
+                    </p>
+                    <p class="text-lg text-gray-300 mb-4">
+                        I'm proficient in technologies like <strong class="text-brand-primary">JavaScript</strong>, <strong class="text-brand-primary">React</strong>, <strong class="text-brand-primary">Node.js</strong>, and more. I thrive on building applications that are not only functional and scalable but also provide an exceptional user experience.
+                    </p>
+                    <p class="text-lg text-gray-300 mb-8">
+                        When I'm not coding, I enjoy exploring new technologies, contributing to open-source projects, and [Your Hobby, e.g., "brewing the perfect cup of coffee"].
+                    </p>
+                    <!-- Skills List -->
+                    <h3 class="text-2xl font-semibold mb-4">My Skills</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">HTML5</span>
+                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">CSS3</span>
+                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">Tailwind CSS</span>
+                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">JavaScript (ES6+)</span>
+                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">React</span>
+                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">Node.js</span>
+                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">Express</span>
+                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">MongoDB</span>
+                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">Git & GitHub</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24">
+            <h2 class="text-4xl font-bold text-center mb-16">
+                My <span class="text-brand-primary">Projects</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- Project Card 1 -->
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-transform hover:-translate-y-2">
+                    <img src="https://placehold.co/600x400/1F2937/E0E7FF?text=Web+App" 
+                         alt="Project 1" 
+                         class="w-full h-56 object-cover"
+                         onerror="this.src='https://placehold.co/600x400/1F2937/E0E7FF?text=Project+Image'">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Web App</h3>
+                        <p class="text-gray-400 mb-6">
+                            A general-purpose web application. (Feel free to update this description!)
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="webapp.html" class="inline-block bg-brand-primary text-white py-2 px-5 rounded-md font-medium transition-colors hover:bg-brand-secondary">Live Demo</a>
+                            <a href="https://github.com/mdtausifiqubal0/webapp" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-700 text-gray-200 py-2 px-5 rounded-md font-medium transition-colors hover:bg-gray-600">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-transform hover:-translate-y-2">
+                    <img src="https://placehold.co/600x400/1F2937/E0E7FF?text=AI+Camera+Tool" 
+                         alt="Project 2" 
+                         class="w-full h-56 object-cover"
+                         onerror="this.src='https://placehold.co/600x400/1F2937/E0E7FF?text=Project+Image'">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">AI Camera Tool</h3>
+                        <p class="text-gray-400 mb-6">
+                            An application utilizing AI with camera input. (Feel free to update this description!)
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="aicameratool.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-brand-primary text-white py-2 px-5 rounded-md font-medium transition-colors hover:bg-brand-secondary">Live Demo</a>
+                            <a href="https://github.com/mdtausifiqubal-7/iskooly/blob/main/aicameratool.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-700 text-gray-200 py-2 px-5 rounded-md font-medium transition-colors hover:bg-gray-600">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-transform hover:-translate-y-2">
+                    <img src="https://placehold.co/600x400/1F2937/E0E7FF?text=School+Management" 
+                         alt="Project 3" 
+                         class="w-full h-56 object-cover"
+                         onerror="this.src='https://placehold.co/600x400/1F2937/E0E7FF?text=Project+Image'">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">School Management System</h3>
+                        <p class="text-gray-400 mb-6">
+                            A system for managing school-related data. (Feel free to update this description!)
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="iskooly/iskooly.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-brand-primary text-white py-2 px-5 rounded-md font-medium transition-colors hover:bg-brand-secondary">Live Demo</a>
+                            <a href="https://github.com/mdtausifiqubal0/schoolmanagement" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-700 text-gray-200 py-2 px-5 rounded-md font-medium transition-colors hover:bg-gray-600">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24">
+            <h2 class="text-4xl font-bold text-center mb-12">
+                Get In <span class="text-brand-primary">Touch</span>
+            </h2>
+            <div class="max-w-3xl mx-auto">
+                <p class="text-center text-lg text-gray-300 mb-8">
+                    I'm currently open to new opportunities and collaborations. Feel free to send me a message!
+                </p>
+                <!-- Contact Form -->
+                <form id="contact-form" class="bg-gray-800 p-8 rounded-lg shadow-xl">
+                    <div id="form-message" class="hidden mb-4 p-4 rounded-md text-center"></div>
+                    <div class="mb-5">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-300">Your Name</label>
+                        <input type="text" id="name" name="name" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" placeholder="John Doe" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-300">Your Email</label>
+                        <input type="email" id="email" name="email" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" placeholder="name@example.com" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="message" class="block mb-2 text-sm font-medium text-gray-300">Message</label>
+                        <textarea id="message" name="message" rows="6" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" placeholder="Your message..." required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-brand-primary text-white font-bold py-3 px-10 rounded-lg text-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-brand-secondary">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Social Links -->
+                <div class="flex justify-center gap-8 mt-12">
+                    <a href="https://github.com/mdtausifiqubal0" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-primary transition-colors">
+                        <span class="sr-only">GitHub</span>
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-primary transition-colors">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 mt-20">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+            <p>&copy; 2025 Md Tausif Iqubal. All rights reserved.</p>
+            <p class="text-sm mt-1">Built with <span class="text-red-500">&hearts;</span> and Tailwind CSS</p>
+        </div>
+    </footer>
+
+    <!-- Sign In Modal -->
+    <div id="signin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal-backdrop backdrop-blur-sm">
+        <div class="bg-gray-800 w-full max-w-md p-8 rounded-lg shadow-xl relative">
+            <button class="close-modal-btn absolute top-4 right-4 text-gray-500 hover:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 class="text-2xl font-bold text-white text-center mb-6">Sign In</h2>
+            <form id="signin-form">
+                <div id="signin-error" class="hidden mb-4 p-3 rounded-md text-center bg-red-200 text-red-800 text-sm"></div>
+                <div class="mb-4">
+                    <label for="signin-email" class="block mb-2 text-sm font-medium text-gray-300">Email</label>
+                    <input type="email" id="signin-email" name="email" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" required>
+                </div>
+                <div class="mb-6">
+                    <label for="signin-password" class="block mb-2 text-sm font-medium text-gray-300">Password</label>
+                    <input type="password" id="signin-password" name="password" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" required>
+                </div>
+                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 px-5 rounded-lg text-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-brand-secondary">
+                    Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signup-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal-backdrop backdrop-blur-sm">
+        <div class="bg-gray-800 w-full max-w-md p-8 rounded-lg shadow-xl relative">
+            <button class="close-modal-btn absolute top-4 right-4 text-gray-500 hover:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 class="text-2xl font-bold text-white text-center mb-6">Create Account</h2>
+            <form id="signup-form">
+                <div id="signup-error" class="hidden mb-4 p-3 rounded-md text-center bg-red-200 text-red-800 text-sm"></div>
+                <div class="mb-4">
+                    <label for="signup-email" class="block mb-2 text-sm font-medium text-gray-300">Email</label>
+                    <input type="email" id="signup-email" name="email" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" required>
+                </div>
+                <div class="mb-4">
+                    <label for="signup-password" class="block mb-2 text-sm font-medium text-gray-300">Password</label>
+                    <input type="password" id="signup-password" name="password" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" required>
+                </div>
+                <div class="mb-6">
+                    <label for="signup-confirm-password" class="block mb-2 text-sm font-medium text-gray-300">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" name="confirm-password" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" required>
+                </div>
+                <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 px-5 rounded-lg text-lg shadow-lg transition-transform transform hover:scale-105 hover:bg-brand-secondary">
+                    Create Account
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>
 

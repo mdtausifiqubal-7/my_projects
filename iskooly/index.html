@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iSkooly Login</title>
+    <title>eSkooly Login Clone</title>
     <style>
         :root {
             --bg-purple: #4A238F; /* Deep purple background */
@@ -198,7 +198,7 @@
         <div class="logo-area">
             <!-- You can replace this div with an actual <img> tag -->
             <div class="logo-placeholder">
-                i<span>SKOOLY</span>
+                e<span>SKOOLY</span>
                 <sup style="font-size: 12px; color: #FF6B6B; background: #ffe5e5; padding: 2px 5px; border-radius: 4px;">PRO</sup>
             </div>
             <small class="logo-subtitle">ULTIMATE EDUCATION ERP</small>
@@ -269,8 +269,11 @@
             
             try {
                 // --- Send data to PHP backend ---
-                // This assumes 'login.php' is in the same folder
-                const response = await fetch('login.php', {
+                // FIX: The error "Failed to parse URL" happens because 'login.php' isn't
+                // a full URL. We'll use an absolute URL to your XAMPP server.
+                // This assumes your project is in a folder named 'iskooly'
+                // e.g., http://localhost/iskooly/login.php
+                const response = await fetch('http://localhost/iskooly/login.php', {
                     method: 'POST',
                     body: formData
                 });

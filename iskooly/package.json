@@ -1,13 +1,11 @@
 {
-  "name": "iskooly-vercel",
-  "version": "1.0.0",
-  "description": "iSkooly login system using Vercel serverless + Supabase DB",
-  "main": "index.js",
-  "engines": {
-    "node": "18.x"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.39.1",
-    "bcryptjs": "^2.4.3"
-  }
+"name": "iskooly-vercel",
+"version": "1.0.0",
+"description": "iSkooly login backend for Vercel + Supabase Postgres",
+"main": "index.js",
+"engines": { "node": "18.x" },
+"dependencies": {
+"pg": "^8.11.0",
+"bcryptjs": "^2.4.3"
+}
 }

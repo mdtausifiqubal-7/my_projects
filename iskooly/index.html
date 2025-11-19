@@ -269,11 +269,8 @@
             
             try {
                 // --- Send data to PHP backend ---
-                // FIX: The error "Failed to parse URL" happens because 'login.php' isn't
-                // a full URL. We'll use an absolute URL to your XAMPP server.
-                // This assumes your project is in a folder named 'iskooly'
-                // e.g., http://localhost/iskooly/login.php
-                const response = await fetch('http://localhost/iskooly/login.php', {
+                // This assumes 'login.php' is in the same folder
+                const response = await fetch('login.php', {
                     method: 'POST',
                     body: formData
                 });

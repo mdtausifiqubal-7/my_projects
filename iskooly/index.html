@@ -1,323 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iSkooly Login</title>
-    <style>
-        :root {
-            --bg-purple: #4A238F; /* Deep purple background */
-            --primary-blue: #436EFD; /* Bright blue for buttons */
-            --text-dark: #0E1B4D; /* Dark navy for headings */
-            --text-gray: #999; /* Placeholder text */
-            --border-color: #e0e0e0;
-            --success-color: #28a745;
-            --error-color: #dc3545;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-purple);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .login-container {
-            background-color: white;
-            padding: 40px 50px;
-            width: 100%;
-            max-width: 600px;
-            border-radius: 4px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        /* --- Logo Area (Placeholder styling to match) --- */
-        .logo-area {
-            margin-bottom: 30px;
-        }
-        .logo-placeholder {
-            font-size: 32px;
-            font-weight: bold;
-            color: #FF6B6B; /* reddish part */
-            display: inline-block;
-        }
-        .logo-placeholder span {
-            color: var(--bg-purple); /* purple part */
-        }
-        .logo-subtitle {
-            font-size: 12px;
-            color: var(--text-dark);
-            letter-spacing: 1px;
-            margin-top: -5px;
-            display: block;
-            opacity: 0.7;
-        }
-
-        /* --- Headings --- */
-        h2 {
-            color: var(--text-dark);
-            font-size: 28px;
-            margin-bottom: 40px;
-            font-weight: 700;
-        }
-
-        /* --- Form Elements --- */
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 15px 5px;
-            border: none;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
-            color: #333;
-        }
-
-        .input-field::placeholder {
-            color: var(--text-gray);
-        }
-
-        .input-field:focus {
-            border-bottom-color: var(--primary-blue);
-        }
-        
-        /* --- Login Message --- */
-        #login-message {
-            font-size: 15px;
-            margin-bottom: 20px;
-            font-weight: 500;
-            /* Height is set even when empty to prevent layout shift */
-            min-height: 1.2em; 
-        }
-        .success { color: var(--success-color); }
-        .error { color: var(--error-color); }
-
-
-        /* --- Options Row (Remember Me / Forgot Pass) --- */
-        .options-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            color: #666;
-            font-size: 15px;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        
-        .remember-me input[type="checkbox"] {
-             width: 16px;
-             height: 16px;
-             accent-color: var(--primary-blue);
-        }
-
-        .forgot-pass {
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        /* --- Buttons --- */
-        .btn {
-            background-color: var(--primary-blue);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.2s;
-            border-radius: 2px;
-        }
-        .btn:hover {
-            background-color: #3258db;
-        }
-
-        .signin-btn {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-        
-        /* Loading state for signin button */
-        .signin-btn:disabled {
-            background-color: #999;
-            cursor: not-allowed;
-        }
-
-        /* --- Role Grid --- */
-        .role-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        .role-btn {
-            padding: 12px 5px;
-            font-size: 11px; /* Smaller font for tightly packed buttons */
-            text-transform: uppercase;
-            white-space: nowrap; /* Prevent text wrapping if possible */
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* Responsive adjustments for smaller screens */
-        @media (max-width: 550px) {
-            .role-grid {
-                grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
-            }
-            .login-container {
-                padding: 30px 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iSkooly Login</title>
+  <style>
+    :root {
+      --bg-purple: #4A238F;
+      --primary-blue: #436EFD;
+      --text-dark: #0E1B4D;
+      --text-gray: #999;
+      --border-color: #e0e0e0;
+      --success-color: #28a745;
+      --error-color: #dc3545;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,Arial,sans-serif;}
+    body{background:var(--bg-purple);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;}
+    .login-container{background:#fff;padding:40px 50px;max-width:600px;width:100%;border-radius:6px;box-shadow:0 10px 25px rgba(0,0,0,0.15);text-align:center;}
+    .logo-placeholder{font-size:32px;font-weight:700;color:#FF6B6B}
+    .logo-placeholder span{color:var(--bg-purple)}
+    h2{color:var(--text-dark);font-size:28px;margin:20px 0 30px;font-weight:700}
+    .input-field{width:100%;padding:15px 5px;border:none;border-bottom:1px solid var(--border-color);font-size:16px;outline:none;transition:border 0.3s;}
+    .input-field:focus{border-bottom-color:var(--primary-blue);}
+    .options-row{display:flex;justify-content:space-between;align-items:center;margin:20px 0;color:#666}
+    .btn{background:var(--primary-blue);color:#fff;border:none;padding:12px 16px;cursor:pointer;font-weight:600;border-radius:4px;transition:background 0.3s;}
+    .btn:hover{background:#3256d1;}
+    .signin-btn{width:100%;padding:15px;text-transform:uppercase}
+    .btn:disabled{background:#ccc;cursor:not-allowed;}
+    #login-message{min-height:1.2em;margin-bottom:12px;font-size:0.95em;}
+    .success{color:var(--success-color)} .error{color:var(--error-color)}
+  </style>
 </head>
 <body>
-
-    <div class="login-container">
-        <!-- Logo Placeholder -->
-        <div class="logo-area">
-            <!-- You can replace this div with an actual <img> tag -->
-            <div class="logo-placeholder">
-                i<span>SKOOLY</span>
-                <sup style="font-size: 12px; color: #FF6B6B; background: #ffe5e5; padding: 2px 5px; border-radius: 4px;">PRO</sup>
-            </div>
-            <small class="logo-subtitle">ULTIMATE EDUCATION ERP</small>
-        </div>
-
-        <h2>Login Details</h2>
-
-        <!-- 
-          Key changes:
-          - id="login-form" to target with JavaScript
-          - method="POST" (though JS will override, it's good practice)
-          - 'name' attributes on inputs are CRITICAL for PHP
-        -->
-        <form id="login-form" method="POST">
-            <div class="form-group">
-                <input type="email" id="email" name="email" class="input-field" placeholder="Enter Email Address" required>
-            </div>
-
-            <div class="form-group">
-                <input type="password" id="password" name="password" class="input-field" placeholder="Enter Password" required>
-            </div>
-            
-            <!-- This element will show success/error messages -->
-            <p id="login-message"></p>
-
-            <div class="options-row">
-                <label class="remember-me">
-                    <input type="checkbox" name="remember">
-                    Remember Me
-                </label>
-                <a href="#" class="forgot-pass">Forget Password?</a>
-            </div>
-
-            <button type="submit" id="signin-btn" class="btn signin-btn">SIGN IN</button>
-        </form>
-
-        <!-- Role Specific Buttons -->
-        <div class="role-grid">
-            <button class="btn role-btn">Super Admin</button>
-            <button class="btn role-btn">Admin</button>
-            <button class="btn role-btn">Teacher</button>
-            <button class="btn role-btn">Parents</button>
-            <button class="btn role-btn">Accountant</button>
-            <button class="btn role-btn">Receptionist</button>
-            <button class="btn role-btn">Librarian</button>
-            <button class="btn role-btn">Student</button>
-        </div>
+  <div class="login-container">
+    <div class="logo-area">
+      <div class="logo-placeholder">i<span>SKOOLY</span><sup style="font-size:12px;color:#FF6B6B;background:#ffe5e5;padding:2px 5px;border-radius:4px">PRO</sup></div>
+      <small style="display:block;margin-top:6px;color:#666">ULTIMATE EDUCATION ERP</small>
     </div>
-    
-    <!-- JavaScript to handle the form submission -->
-    <script>
-        document.getElementById('login-form').addEventListener('submit', async function(e) {
-            // Prevent the default form reload
-            e.preventDefault();
-            
-            const form = e.target;
-            const loginButton = document.getElementById('signin-btn');
-            const messageEl = document.getElementById('login-message');
 
-            // --- Get form data ---
-            const formData = new FormData(form);
-            
-            // --- Set loading state ---
-            loginButton.disabled = true;
-            loginButton.textContent = 'SIGNING IN...';
-            messageEl.textContent = '';
-            messageEl.className = '';
-            
-            try {
-                // --- Send data to PHP backend ---
-                // This assumes 'login.php' is in the same folder
-                const response = await fetch('login.php', {
-                    method: 'POST',
-                    body: formData
-                });
+    <h2>Login Details</h2>
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+    <form id="login-form">
+      <div style="margin-bottom:18px">
+        <!-- Default credentials included -->
+        <input type="email" id="email" name="email" class="input-field" placeholder="Enter Email Address" value="admin@iskooly.com" required>
+      </div>
+      <div style="margin-bottom:8px">
+        <!-- Default credentials included -->
+        <input type="password" id="password" name="password" class="input-field" placeholder="Enter Password" value="123456" required>
+      </div>
 
-                const data = await response.json();
+      <p id="login-message"></p>
 
-                // --- Handle response from PHP ---
-                if (data.status === 'success') {
-                    messageEl.textContent = data.message;
-                    messageEl.className = 'success';
-                    
-                    // --- REDIRECT LOGIC ---
-                    // Check if the role from the database is 'Admin'
-                    if (data.role === 'Admin') {
-                        // Wait 1.5 seconds so the user can see the "Success" message
-                        setTimeout(() => {
-                            // Redirect to the dashboard using the correct localhost URL
-                            window.location.href = 'http://localhost/iskooly/dashboard.html';
-                        }, 1500); // 1.5 second delay
-                    }
-                    
-                } else {
-                    messageEl.textContent = data.message;
-                    messageEl.className = 'error';
-                }
+      <div class="options-row">
+        <label style="display:flex;align-items:center;gap:8px">
+          <input type="checkbox" name="remember" style="width:16px;height:16px">
+          Remember Me
+        </label>
+        <a href="#" style="color:var(--primary-blue);text-decoration:none;font-weight:500">Forget Password?</a>
+      </div>
 
-            } catch (error) {
-                // Handle network errors
-                console.error('Fetch Error:', error);
-                messageEl.textContent = 'A network error occurred. Please try again.';
-                messageEl.className = 'error';
-                
-            } finally {
-                // --- Reset loading state ---
-                // Only re-enable the button if it wasn't a successful admin login
-                // (since the page will be redirecting anyway)
-                if (messageEl.className.includes('error')) {
-                    loginButton.disabled = false;
-                    loginButton.textContent = 'SIGN IN';
-                }
-            }
+      <button type="submit" id="signin-btn" class="btn signin-btn">SIGN IN</button>
+    </form>
+  </div>
+
+  <!-- FIREBASE INTEGRATION -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDMeViowNTpg8RFG7dGrh-TCKHi03ecNxo",
+      authDomain: "iskooly-app.firebaseapp.com",
+      projectId: "iskooly-app",
+      storageBucket: "iskooly-app.firebasestorage.app",
+      messagingSenderId: "412177781040",
+      appId: "1:412177781040:web:15fd690ef39b91b906b8f5",
+      measurementId: "G-6K63S5N6R0"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginForm = document.getElementById('login-form');
+    const msg = document.getElementById('login-message');
+    const btn = document.getElementById('signin-btn');
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault(); 
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      btn.disabled = true;
+      btn.textContent = 'VERIFYING...';
+      msg.textContent = '';
+      msg.className = '';
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          msg.textContent = "Login Successful! Redirecting...";
+          msg.className = "success";
+          
+          // Redirect to your external site
+          setTimeout(() => {
+            window.location.href = "https://mdtausifiqubal7.site/";
+          }, 1500);
+        })
+        .catch((error) => {
+          console.error("Error:", error.code, error.message);
+          btn.disabled = false;
+          btn.textContent = 'SIGN IN';
+          msg.className = "error";
+
+          if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found') {
+             msg.textContent = "User not found. Did you create this user in Firebase Console?";
+          } else if (error.code === 'auth/wrong-password') {
+             msg.textContent = "Incorrect password.";
+          } else {
+             msg.textContent = "Login failed: " + error.message;
+          }
         });
-    </script>
-
+    });
+  </script>
 </body>
 </html>

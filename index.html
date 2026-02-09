@@ -270,7 +270,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    Donate ₹500
+                    Donate ₹1
                 </button>
                 <p class="text-xs text-gray-500 mt-4">Secured by Razorpay</p>
             </div>
@@ -339,33 +339,42 @@
     <!-- Application Logic -->
     <script>
         // --- RAZORPAY CONFIGURATION ---
-        var options = {
-            "key": "rzp_test_1DP5mmOlF5G5ag", // Enter the Key ID generated from the Dashboard
-            "amount": "50000", // Amount is in currency subunits. (50000 paise = ₹500)
-            "currency": "INR",
-            "name": "Md Tausif Iqubal", // Your business name
-            "description": "Support my work",
-            "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiaY5ypgi-BaiowJk3o8aM7GWnR2N9sk9-4CaUJvndPMgYlNF1FfB3Ay7J5MvHj5pNAG8y5mZBYQIE4vKEIU11w_Vo9aOyyftVJZL_HqpjRb8mrl-tgNWBnjMRBrF_eA2rGbGvWN4KKcNpKUZDMW0hJTbpJ2R76CqVdW2hQIr92RWIzbnJN8P71mDrwgJc1/s1024/profile-pic.png",
-            // "order_id": "order_9A33XWu170gUtm", // NOTE: Order ID requires a backend to generate. Commented out for static site demo.
-            // "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/", // Optional: Redirect URL after success
-            "prefill": { 
-                "name": "", // Leave empty to let user fill it
-                "email": "",
-                "contact": "" 
-            },
-            "notes": {
-                "address": "Portfolio Donation"
-            },
-            "theme": {
-                "color": "#14b8a6" // Brand color
-            }
-        };
-
-        var rzp1 = new Razorpay(options);
+        // NOTE: Replace 'rzp_test_1DP5mmOlF5G5ag' with your actual Key ID from Razorpay Dashboard
+        const RAZORPAY_KEY_ID = "rzp_test_1DP5mmOlF5G5ag"; 
 
         document.getElementById('rzp-button1').onclick = function(e){
-            rzp1.open();
             e.preventDefault();
+            
+            var options = {
+                "key": RAZORPAY_KEY_ID, 
+                "amount": "100", // Amount in paise (100 paise = ₹1)
+                "currency": "INR",
+                "name": "Md Tausif Iqubal",
+                "description": "Support my work",
+                "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiaY5ypgi-BaiowJk3o8aM7GWnR2N9sk9-4CaUJvndPMgYlNF1FfB3Ay7J5MvHj5pNAG8y5mZBYQIE4vKEIU11w_Vo9aOyyftVJZL_HqpjRb8mrl-tgNWBnjMRBrF_eA2rGbGvWN4KKcNpKUZDMW0hJTbpJ2R76CqVdW2hQIr92RWIzbnJN8P71mDrwgJc1/s1024/profile-pic.png",
+                "handler": function (response){
+                    // This executes after successful payment
+                    alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+                    // Here you would typically send the payment ID to your backend for verification
+                },
+                "prefill": {
+                    "name": "Guest User",
+                    "email": "guest@example.com",
+                    "contact": ""
+                },
+                "theme": {
+                    "color": "#14b8a6" // Matches teal-500
+                }
+            };
+
+            var rzp1 = new Razorpay(options);
+            
+            // Handle Payment Failures
+            rzp1.on('payment.failed', function (response){
+                alert("Payment Failed. Reason: " + response.error.description);
+            });
+
+            rzp1.open();
         }
 
         // --- UI INTERACTION LOGIC ---

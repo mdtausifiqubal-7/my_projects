@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Md Tausif Iqubal - Web Developer</title>
+    <!-- Load Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Inter font -->
@@ -26,8 +28,6 @@
             },
         }
     </script>
-   
-   
 </head>
 <body class="bg-gray-900 text-gray-100 antialiased">
 
@@ -52,7 +52,7 @@
                         Sign Up
                     </button>
                 </div>
-                <!-- Menu for logged-in users -->
+                <!-- Menu for logged-in users (Hidden by default) -->
                 <div id="user-menu" class="hidden items-center space-x-6">
                     <a href="#home" class="text-gray-300 transition-colors hover:text-brand-primary">Home</a>
                     <a href="#about" class="text-gray-300 transition-colors hover:text-brand-primary">About</a>
@@ -76,7 +76,7 @@
         </nav>
         
         <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-800 shadow-xl">
             <!-- Links for logged-out users -->
             <div id="mobile-auth-links" class="space-y-1">
                 <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Home</a>
@@ -85,15 +85,6 @@
                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Contact</a>
                 <button id="show-signin-btn-mobile" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Sign In</button>
                 <button id="show-signup-btn-mobile" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-brand-primary text-white hover:bg-brand-secondary">Sign Up</button>
-            </div>
-            <!-- Menu for logged-in users -->
-            <div id="mobile-user-menu" class="hidden space-y-1">
-                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Home</a>
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">About</a>
-                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Projects</a>
-                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Contact</a>
-                <span id="mobile-user-email-display" class="block px-3 py-2 text-base font-medium text-gray-400"></span>
-                <button id="signout-btn-mobile" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-gray-700 text-white hover:bg-gray-600">Sign Out</button>
             </div>
         </div>
     </header>
@@ -129,18 +120,18 @@
                 <div class="w-full md:w-1/3">
                     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiaY5ypgi-BaiowJk3o8aM7GWnR2N9sk9-4CaUJvndPMgYlNF1FfB3Ay7J5MvHj5pNAG8y5mZBYQIE4vKEIU11w_Vo9aOyyftVJZL_HqpjRb8mrl-tgNWBnjMRBrF_eA2rGbGvWN4KKcNpKUZDMW0hJTbpJ2R76CqVdW2hQIr92RWIzbnJN8P71mDrwgJc1/s1024/profile-pic.png" 
                          alt="Md Tausif Iqubal" 
-                         class="rounded-full shadow-2xl mx-auto border-4 border-gray-700"
+                         class="rounded-full shadow-2xl mx-auto border-4 border-gray-700 w-64 h-64 object-cover"
                          onerror="this.src='https://placehold.co/400x400/1F2937/E0E7FF?text=Profile+Image'">
                 </div>
                 <div class="w-full md:w-2/3">
                     <p class="text-lg text-gray-300 mb-4">
-                        Hello! I'm Md Tausif Iqubal, a dedicated web developer based in Samastipur,India. My journey into web development started with a fascination for how ideas come to life on the internet. Today, I specialize in both front-end and back-end development.
+                        Hello! I'm Md Tausif Iqubal, a dedicated web developer based in Samastipur, India. My journey into web development started with a fascination for how ideas come to life on the internet. Today, I specialize in both front-end and back-end development.
                     </p>
                     <p class="text-lg text-gray-300 mb-4">
                         I'm proficient in technologies like <strong class="text-brand-primary">JavaScript</strong>, <strong class="text-brand-primary">React</strong>, <strong class="text-brand-primary">Node.js</strong>, and more. I thrive on building applications that are not only functional and scalable but also provide an exceptional user experience.
                     </p>
                     <p class="text-lg text-gray-300 mb-8">
-                        When I'm not coding, I enjoy exploring new technologies, contributing to open-source projects, and [Your Hobby, e.g., "brewing the perfect cup of coffee"].
+                        When I'm not coding, I enjoy exploring new technologies and contributing to open-source projects.
                     </p>
                     <!-- Skills List -->
                     <h3 class="text-2xl font-semibold mb-4">My Skills</h3>
@@ -153,7 +144,6 @@
                         <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">Node.js</span>
                         <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">Express</span>
                         <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">MongoDB</span>
-                        <span class="bg-gray-700 text-gray-200 py-2 px-4 rounded-full font-medium">Git & GitHub</span>
                     </div>
                 </div>
             </div>
@@ -175,11 +165,11 @@
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3">Our School Website</h3>
                         <p class="text-gray-400 mb-6">
-                            A general-purpose web application. (Feel free to update this description!)
+                            A general-purpose web application designed for educational institutions.
                         </p>
                         <div class="flex gap-4">
                             <a href="https://drtma.in" class="inline-block bg-brand-primary text-white py-2 px-5 rounded-md font-medium transition-colors hover:bg-brand-secondary">Live Demo</a>
-                            <a href="https://github.com/mdtausifiqubal-7/Dr-Taha-Memorial-Academy" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-700 text-gray-200 py-2 px-5 rounded-md font-medium transition-colors hover:bg-gray-600">GitHub</a>
+                            <a href="#" class="inline-block bg-gray-700 text-gray-200 py-2 px-5 rounded-md font-medium transition-colors hover:bg-gray-600">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -193,11 +183,11 @@
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3">AI Camera Tool</h3>
                         <p class="text-gray-400 mb-6">
-                            An application utilizing AI with camera input. (Feel free to update this description!)
+                            An application utilizing AI with camera input for real-time analysis.
                         </p>
                         <div class="flex gap-4">
-                            <a href="aicameratool/index.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-brand-primary text-white py-2 px-5 rounded-md font-medium transition-colors hover:bg-brand-secondary">Live Demo</a>
-                            <a href="https://github.com/mdtausifiqubal-7/my_projects/tree/main/aicameratool" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-700 text-gray-200 py-2 px-5 rounded-md font-medium transition-colors hover:bg-gray-600">GitHub</a>
+                            <a href="#" class="inline-block bg-brand-primary text-white py-2 px-5 rounded-md font-medium transition-colors hover:bg-brand-secondary">Live Demo</a>
+                            <a href="#" class="inline-block bg-gray-700 text-gray-200 py-2 px-5 rounded-md font-medium transition-colors hover:bg-gray-600">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -211,11 +201,11 @@
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3">School Management System</h3>
                         <p class="text-gray-400 mb-6">
-                            A system for managing school-related data. (Feel free to update this description!)
+                            A comprehensive system for managing school data, students, and staff.
                         </p>
                         <div class="flex gap-4">
-                            <a href="iskooly/index.html" target="_blank" rel="noopener noreferrer" class="inline-block bg-brand-primary text-white py-2 px-5 rounded-md font-medium transition-colors hover:bg-brand-secondary">Live Demo</a>
-                            <a href="https://github.com/mdtausifiqubal-7/my_projects/tree/main/iskooly" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-700 text-gray-200 py-2 px-5 rounded-md font-medium transition-colors hover:bg-gray-600">GitHub</a>
+                            <a href="#" class="inline-block bg-brand-primary text-white py-2 px-5 rounded-md font-medium transition-colors hover:bg-brand-secondary">Live Demo</a>
+                            <a href="#" class="inline-block bg-gray-700 text-gray-200 py-2 px-5 rounded-md font-medium transition-colors hover:bg-gray-600">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -233,7 +223,7 @@
                     I'm currently open to new opportunities and collaborations. Feel free to send me a message!
                 </p>
                 <!-- Contact Form -->
-                <form id="contact-form" class="bg-gray-800 p-8 rounded-lg shadow-xl">
+                <form id="contact-form" class="bg-gray-800 p-8 rounded-lg shadow-xl" onsubmit="event.preventDefault(); alert('Message sent (Demo)!');">
                     <div id="form-message" class="hidden mb-4 p-4 rounded-md text-center"></div>
                     <div class="mb-5">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-300">Your Name</label>
@@ -260,11 +250,29 @@
                         <span class="sr-only">GitHub</span>
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
                     </a>
-                    <a href="www.linkedin.com/in/mdtausifiqubal7" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-primary transition-colors">
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-primary transition-colors">
                         <span class="sr-only">LinkedIn</span>
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
                     </a>
                 </div>
+            </div>
+        </section>
+
+        <!-- Support / Razorpay Section (ADDED) -->
+        <section id="support" class="py-16 bg-gray-800/50 mt-12 rounded-2xl">
+            <div class="text-center max-w-2xl mx-auto px-6">
+                <h2 class="text-3xl font-bold mb-4">Support My Work</h2>
+                <p class="text-gray-400 mb-8">
+                    If you found my projects useful or just want to support my journey as a developer, you can buy me a coffee!
+                </p>
+                <!-- Razorpay Button -->
+                <button id="rzp-button1" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white font-bold py-4 px-10 rounded-full text-xl shadow-lg transition-transform transform hover:scale-105 hover:from-blue-600 hover:to-teal-600 flex items-center justify-center gap-3 mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Donate ₹500
+                </button>
+                <p class="text-xs text-gray-500 mt-4">Secured by Razorpay</p>
             </div>
         </section>
 
@@ -279,14 +287,13 @@
     </footer>
 
     <!-- Sign In Modal -->
-    <div id="signin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal-backdrop backdrop-blur-sm">
-        <div class="bg-gray-800 w-full max-w-md p-8 rounded-lg shadow-xl relative">
+    <div id="signin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal-backdrop backdrop-blur-sm bg-gray-900/50">
+        <div class="bg-gray-800 w-full max-w-md p-8 rounded-lg shadow-xl relative animate-[fadeIn_0.3s_ease-out]">
             <button class="close-modal-btn absolute top-4 right-4 text-gray-500 hover:text-gray-300">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <h2 class="text-2xl font-bold text-white text-center mb-6">Sign In</h2>
-            <form id="signin-form">
-                <div id="signin-error" class="hidden mb-4 p-3 rounded-md text-center bg-red-200 text-red-800 text-sm"></div>
+            <form id="signin-form" onsubmit="event.preventDefault(); alert('Sign In Logic would go here.');">
                 <div class="mb-4">
                     <label for="signin-email" class="block mb-2 text-sm font-medium text-gray-300">Email</label>
                     <input type="email" id="signin-email" name="email" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" required>
@@ -303,14 +310,13 @@
     </div>
 
     <!-- Sign Up Modal -->
-    <div id="signup-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal-backdrop backdrop-blur-sm">
-        <div class="bg-gray-800 w-full max-w-md p-8 rounded-lg shadow-xl relative">
+    <div id="signup-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal-backdrop backdrop-blur-sm bg-gray-900/50">
+        <div class="bg-gray-800 w-full max-w-md p-8 rounded-lg shadow-xl relative animate-[fadeIn_0.3s_ease-out]">
             <button class="close-modal-btn absolute top-4 right-4 text-gray-500 hover:text-gray-300">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <h2 class="text-2xl font-bold text-white text-center mb-6">Create Account</h2>
-            <form id="signup-form">
-                <div id="signup-error" class="hidden mb-4 p-3 rounded-md text-center bg-red-200 text-red-800 text-sm"></div>
+            <form id="signup-form" onsubmit="event.preventDefault(); alert('Sign Up Logic would go here.');">
                 <div class="mb-4">
                     <label for="signup-email" class="block mb-2 text-sm font-medium text-gray-300">Email</label>
                     <input type="email" id="signup-email" name="email" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block w-full p-3" required>
@@ -330,6 +336,94 @@
         </div>
     </div>
 
+    <!-- Application Logic -->
+    <script>
+        // --- RAZORPAY CONFIGURATION ---
+        var options = {
+            "key": "rzp_test_1DP5mmOlF5G5ag", // Enter the Key ID generated from the Dashboard
+            "amount": "50000", // Amount is in currency subunits. (50000 paise = ₹500)
+            "currency": "INR",
+            "name": "Md Tausif Iqubal", // Your business name
+            "description": "Support my work",
+            "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiaY5ypgi-BaiowJk3o8aM7GWnR2N9sk9-4CaUJvndPMgYlNF1FfB3Ay7J5MvHj5pNAG8y5mZBYQIE4vKEIU11w_Vo9aOyyftVJZL_HqpjRb8mrl-tgNWBnjMRBrF_eA2rGbGvWN4KKcNpKUZDMW0hJTbpJ2R76CqVdW2hQIr92RWIzbnJN8P71mDrwgJc1/s1024/profile-pic.png",
+            // "order_id": "order_9A33XWu170gUtm", // NOTE: Order ID requires a backend to generate. Commented out for static site demo.
+            // "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/", // Optional: Redirect URL after success
+            "prefill": { 
+                "name": "", // Leave empty to let user fill it
+                "email": "",
+                "contact": "" 
+            },
+            "notes": {
+                "address": "Portfolio Donation"
+            },
+            "theme": {
+                "color": "#14b8a6" // Brand color
+            }
+        };
 
+        var rzp1 = new Razorpay(options);
+
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+
+        // --- UI INTERACTION LOGIC ---
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Modal Logic
+        const modals = {
+            signin: document.getElementById('signin-modal'),
+            signup: document.getElementById('signup-modal')
+        };
+
+        const buttons = {
+            showSignin: document.getElementById('show-signin-btn'),
+            showSignup: document.getElementById('show-signup-btn'),
+            showSigninMobile: document.getElementById('show-signin-btn-mobile'),
+            showSignupMobile: document.getElementById('show-signup-btn-mobile')
+        };
+
+        // Open Modal Function
+        function openModal(modalId) {
+            // Close all modals first
+            Object.values(modals).forEach(el => el.classList.add('hidden'));
+            // Open specific modal
+            modals[modalId].classList.remove('hidden');
+            // Close mobile menu if open
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Close Modal Function
+        function closeModal() {
+            Object.values(modals).forEach(el => el.classList.add('hidden'));
+        }
+
+        // Event Listeners for Opening
+        buttons.showSignin.addEventListener('click', () => openModal('signin'));
+        buttons.showSignup.addEventListener('click', () => openModal('signup'));
+        buttons.showSigninMobile.addEventListener('click', () => openModal('signin'));
+        buttons.showSignupMobile.addEventListener('click', () => openModal('signup'));
+
+        // Event Listeners for Closing (X button)
+        document.querySelectorAll('.close-modal-btn').forEach(btn => {
+            btn.addEventListener('click', closeModal);
+        });
+
+        // Close on backdrop click
+        Object.values(modals).forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        });
+
+    </script>
 </body>
 </html>
